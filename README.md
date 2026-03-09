@@ -1,4 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Website Barber
+
+Aplicación Next.js para un peluquero que permite a los usuarios registrarse y agendar citas.
+
+
+## Requisitos
+
+- Node.js 18 o superior
+- Cuenta de Supabase
+
+## Configuración
+
+1. Crea un proyecto en [Supabase](https://supabase.com) y obtén la URL y la clave ANON.
+2. Añade un archivo `.env.local` en la raíz (no debe subirse a git) con las variables:
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=tu_url_de_supabase
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=tu_clave_anonima
+   ```
+   Si estas variables faltan, la aplicación fallará mostrando un error al iniciar.
+3. En Supabase, crea una tabla `appointments` con columnas:
+   - `id` (integer, primary key, autoincrement)
+   - `name` (text)
+   - `surname` (text)
+   - `email` (text)
+   - `scheduled_at` (timestamp)
+   - `status` (text, default 'pending')  // 'pending', 'accepted', 'rejected'
+
+4. Crea otra tabla `available_slots` con columnas:
+   - `id` (integer, primary key, autoincrement)
+   - `date` (date)
+   - `start_time` (time)
+   - `end_time` (time)
+   - `available` (boolean, default true)
+
+   **Importante:** Deshabilita RLS en ambas tablas.
 
 ## Getting Started
 
