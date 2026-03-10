@@ -11,6 +11,6 @@ export async function getWorkHoursFromDB() {
 
 export async function saveWorkHoursToDB(start: string, end: string) {
   // Solo un registro, id=1
-  const { error } = await supabase.from('work_hours').upsert({ id: 1, start_time: start, end_time: end }, { onConflict: ['id'] });
+  const { error } = await supabase.from('work_hours').upsert({ id: 1, start_time: start, end_time: end }, { onConflict: 'id' });
   return !error;
 }
