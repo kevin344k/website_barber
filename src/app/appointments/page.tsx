@@ -3,14 +3,15 @@
 import { useState, useEffect } from 'react';
 import { getWorkHoursFromDB } from '../../lib/supabaseWorkHours';
 
+
 import dynamic from 'next/dynamic';
 import interactionPlugin from '@fullcalendar/interaction';
 import esLocale from '@fullcalendar/core/locales/es';
 import { supabase } from '../../lib/supabaseClient';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
 
 const FullCalendar = dynamic(() => import('@fullcalendar/react'), { ssr: false });
-const dayGridPlugin = dynamic(() => import('@fullcalendar/daygrid'), { ssr: false });
-const timeGridPlugin = dynamic(() => import('@fullcalendar/timegrid'), { ssr: false });
 
 interface Appointment {
   id: number;
@@ -43,13 +44,7 @@ export default function AppointmentsPage() {
 
   useEffect(() => {
     fetchAppointments();
-    // Load plugins dynamically
-    Promise.all([
-      import('@fullcalendar/daygrid'),
-      import('@fullcalendar/timegrid'),
-    ]).then(([dayGrid, timeGrid]) => {
-      setPlugins([dayGrid.default, timeGrid.default, interactionPlugin]);
-    });
+    setPlugins([dayGridPlugin, timeGridPlugin, interactionPlugin]);
   }, []);
 
   const dayCellClassNames = (arg: any) => {
