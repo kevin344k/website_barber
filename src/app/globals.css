@@ -1,66 +1,25 @@
-/* Bordes completos para cada celda de día en la vista semanal (timeGrid) */
-.fc .fc-timegrid-slot, .fc .fc-timegrid-col {
-  border-left: 1.5px solid #6b7280 !important;
-  border-right: 1.5px solid #6b7280 !important;
-  border-bottom: 1.5px solid #6b7280 !important;
-
-  background-clip: padding-box;
+/* Animación shake para error en input */
+.animate-shake {
+  animation: shake 0.3s;
 }
-
-/* Elimina doble borde izquierdo en la primera columna */
-.fc .fc-timegrid-col:first-child {
-
-  border-left: none !important;
+@keyframes shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+  100% { transform: translateX(0); }
 }
-/* Bordes verticales en cada celda de la vista semanal (timeGrid) */
-.fc .fc-timegrid-slot, .fc .fc-timegrid-col {
-  border-right: 1.5px solid #6b7280 !important; /* neutral-500 */
-  border-bottom: 1.5px solid #6b7280 !important;
-  
-    border-left: 1.5px solid #6b7280 !important;
-  
+/* Animación fade-in para mensaje de error */
+.animate-fade-in-down {
+  animation: fadeInDown 0.3s;
 }
-
-/* Elimina doble borde derecho en la última columna */
-.fc .fc-timegrid-col:last-child {
-  border-right: none !important;
-}
-/* FullCalendar: encabezado de días y bordes elegantes */
-.fc .fc-col-header-cell {
-  background: #f3f4f6 !important; /* neutral-100 */
-  color: #171717 !important; /* neutral-900 */
-  border: 1px solid #d1d5db !important; /* neutral-300 */
-  font-weight: 600;
- 
-}
-
-.fc .fc-scrollgrid, .fc .fc-scrollgrid-section {
-  border-color: #d1d5db !important; /* neutral-300 */
-}
-
-.fc .fc-daygrid-day, .fc .fc-timegrid-slot, .fc .fc-timegrid-col {
-  background: #fafafa !important; /* neutral-50 */
-  border: 1px solid #e5e7eb !important; /* neutral-200 */
-}
-
-.fc .fc-day-today {
-  background: #babbbe !important; /* neutral-200 */
-  
-}
-
-.fc .fc-timegrid-slot-label {
-  background: #f3f4f6 !important; /* neutral-100 */
-  color: #525252 !important; /* neutral-600 */
-
-}
-.fc .fc-daygrid-day-top{
-    color: #171717 !important; /* neutral-900 */
-}
-.fc .fc-daygrid-day-events{
-
-    color: #171717 !important; /* neutral-900 */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 @import "tailwindcss";
+
 
 :root {
   --background: #ffffff;
@@ -73,14 +32,10 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-anton: var(--font-anton);
+  --font-caveat: var(--font-caveat);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+
 
 body {
   background: var(--background);
@@ -89,7 +44,8 @@ body {
 }
 
 .weekend {
-  background-color: #353434 !important; /* Rojo claro para fines de semana */
+  
+  background-color: hwb(0 93% 8%) !important; /* Rojo claro para fines de semana */
 }
 
 /* Fuerza altura fija de las filas de timeGrid (por si slotMinHeight no surte efecto) */
@@ -102,3 +58,6 @@ body {
   font-weight: 400;
   font-style: normal;
 }
+.wobble-hor-bottom{-webkit-animation:wobble-hor-bottom .8s NaNs infinite alternate both;animation:wobble-hor-bottom .8s NaNs infinite alternate both}
+
+@-webkit-keyframes wobble-hor-bottom{0%,100%{-webkit-transform:translateX(0);transform:translateX(0);-webkit-transform-origin:50% 50%;transform-origin:50% 50%}15%{-webkit-transform:translateX(-30px) rotate(-6deg);transform:translateX(-30px) rotate(-6deg)}30%{-webkit-transform:translateX(15px) rotate(6deg);transform:translateX(15px) rotate(6deg)}45%{-webkit-transform:translateX(-15px) rotate(-3.6deg);transform:translateX(-15px) rotate(-3.6deg)}60%{-webkit-transform:translateX(9px) rotate(2.4deg);transform:translateX(9px) rotate(2.4deg)}75%{-webkit-transform:translateX(-6px) rotate(-1.2deg);transform:translateX(-6px) rotate(-1.2deg)}}@keyframes wobble-hor-bottom{0%,100%{-webkit-transform:translateX(0);transform:translateX(0);-webkit-transform-origin:50% 50%;transform-origin:50% 50%}15%{-webkit-transform:translateX(-30px) rotate(-6deg);transform:translateX(-30px) rotate(-6deg)}30%{-webkit-transform:translateX(15px) rotate(6deg);transform:translateX(15px) rotate(6deg)}45%{-webkit-transform:translateX(-15px) rotate(-3.6deg);transform:translateX(-15px) rotate(-3.6deg)}60%{-webkit-transform:translateX(9px) rotate(2.4deg);transform:translateX(9px) rotate(2.4deg)}75%{-webkit-transform:translateX(-6px) rotate(-1.2deg);transform:translateX(-6px) rotate(-1.2deg)}}
