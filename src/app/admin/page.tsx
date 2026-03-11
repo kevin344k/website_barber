@@ -105,8 +105,17 @@ export default function AdminPage() {
     setShowLogin(false);
     setLoadingLogin(false);
     localStorage.setItem('admin_logged', 'true');
+    window.dispatchEvent(new Event('admin-login'));
     // Actualizar last_login
     await supabase.from('sessions').update({ last_login: new Date().toISOString() }).eq('id', data.id);
+    // Función para salir
+    const handleLogout = () => {
+      setIsLogged(false);
+      setShowLogin(true);
+      setLoginError('');
+      localStorage.setItem('admin_logged', 'false');
+      window.dispatchEvent(new Event('admin-login'));
+    };
   };
 
 

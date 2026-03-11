@@ -10,13 +10,14 @@ export default function ClientHeader() {
   const [isAdminLogged, setIsAdminLogged] = useState(false);
   useEffect(() => {
     // Detectar login admin personalizado (localStorage)
-    setIsAdminLogged(localStorage.getItem('admin_logged') === 'true');
-    window.addEventListener('storage', () => {
-      setIsAdminLogged(localStorage.getItem('admin_logged') === 'true');
-    });
+    const syncLogin = () => setIsAdminLogged(localStorage.getItem('admin_logged') === 'true');
+    syncLogin();
+    window.addEventListener('storage', syncLogin);
+    window.addEventListener('admin-login', syncLogin);
     // Limpieza
     return () => {
-      window.removeEventListener('storage', () => {});
+      window.removeEventListener('storage', syncLogin);
+      window.removeEventListener('admin-login', syncLogin);
     };
   }, []);
   const handleLogout = () => {
