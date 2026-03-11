@@ -32,7 +32,7 @@ export default function ClientHeader() {
         Inicio
       </a>
       <a href="/appointments" className="mr-4 hover:text-amber-400 transition">
-        Agendar cita
+        Agendar 
       </a>
       {!isAdminLogged ? (
         <button
