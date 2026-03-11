@@ -31,7 +31,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Barber Shop",
+  title: "THE CHAMO | Barber Shop",
   description: "Reserva tu cita en línea",
 };
 
