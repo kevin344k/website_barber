@@ -39,7 +39,11 @@ export default function Home() {
         
 
 <svg
-  className="absolute left-20 -top-15  -translate-x-1/2 w-30 md:w-56  -rotate-30 lg:left-130 lg:top-5 lg:-scale-x-100  lg:rotate-150"
+  className="absolute left-20 -top-15  -translate-x-1/2 w-30 md:w-56  -rotate-30 *:
+  
+  md:left-130 md:top-5 md:-scale-x-100  md:rotate-150
+  
+  lg:left-130 lg:top-5 lg:-scale-x-100  lg:rotate-150"
   viewBox="3300 350 1200 400"
   fill="none"
   xmlns="http://www.w3.org/2000/svg"

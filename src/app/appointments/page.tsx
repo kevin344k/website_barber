@@ -152,7 +152,12 @@ export default function AppointmentsPage() {
             right: 'dayGridMonth,timeGridWeek,timeGridDay'
           }}
           slotMinTime={workStart + ':00'}
-          slotMaxTime={workEnd + ':00'}
+          slotMaxTime={(() => {
+            // Suma una hora al valor de cierre
+            const [h, m] = workEnd.split(':').map(Number);
+            const newH = h + 1;
+            return (newH < 10 ? '0' : '') + newH + ':' + (m < 10 ? '0' : '') + m + ':00';
+          })()}
           slotDuration="01:00:00"            // dividir en horas completas en lugar de 30min
           slotLabelFormat={{ hour: '2-digit', minute: '2-digit' }}
           allDaySlot={false}
