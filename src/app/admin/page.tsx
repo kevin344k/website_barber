@@ -9,12 +9,12 @@ import bcrypt from 'bcryptjs';
 import Image from 'next/image';
 import exit from '@/assets/exit.png';
 
-interface Slot {
+
+interface Appointment {
   id: number;
-  date: string;
-  start_time: string;
-  end_time: string;
-  available: boolean;
+  name?: string;
+  scheduled_at: string;
+  status: string;
 }
 
 
@@ -27,7 +27,7 @@ export default function AdminPage() {
   const [loadingLogin, setLoadingLogin] = useState(false);
 
   // --- Lógica de admin panel ---
-  const [appointments, setAppointments] = useState([]);
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [workStart, setWorkStart] = useState('09:00');
   const [workEnd, setWorkEnd] = useState('19:00');
   const [pendingStart, setPendingStart] = useState('09:00');
