@@ -1,8 +1,16 @@
 
-import { useState } from 'react';
+
+import { FC, useState } from 'react';
 import Image from 'next/image';
 
-export default function LoginModal({ onLogin, error, show, loading }) {
+interface LoginModalProps {
+  onLogin: (username: string, password: string) => void;
+  error: string;
+  show: boolean;
+  loading: boolean;
+}
+
+const LoginModal: FC<LoginModalProps> = ({ onLogin, error, show, loading }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   if (!show) return null;
@@ -86,4 +94,6 @@ export default function LoginModal({ onLogin, error, show, loading }) {
       </div>
     </div>
   );
-}
+};
+
+export default LoginModal;

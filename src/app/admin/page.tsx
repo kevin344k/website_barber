@@ -61,7 +61,7 @@ export default function AdminPage() {
     }
   };
 
-  const updateAppointmentStatus = async (id, status) => {
+  const updateAppointmentStatus = async (id: number, status: string) => {
     const { error } = await supabase
       .from('appointments')
       .update({ status })
@@ -73,13 +73,13 @@ export default function AdminPage() {
     }
   };
 
-  const deleteAppointment = async (id) => {
+  const deleteAppointment = async (id: number) => {
     const { error } = await supabase.from('appointments').delete().eq('id', id);
     if (!error) fetchAppointments();
   };
 
   // Lógica de login
-  const signIn = async (username, password) => {
+  const signIn = async (username: string, password: string) => {
     setLoadingLogin(true);
     setLoginError('');
     // Buscar usuario en la tabla sessions
