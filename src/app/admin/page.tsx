@@ -57,7 +57,7 @@ export default function AdminPage() {
     if (error) {
       console.error(error);
     } else {
-      setAppointments(data || []);
+      setAppointments((data as Appointment[]) || []);
     }
   };
 
