@@ -1,3 +1,28 @@
+/* Animaciones para imágenes flotantes en el login */
+@keyframes float-rotate1 {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-18px) rotate(10deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+@keyframes float-rotate2 {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(16px) rotate(-12deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+@keyframes float-rotate3 {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(8deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+.animate-float-rotate1 {
+  animation: float-rotate1 3.5s ease-in-out infinite;
+}
+.animate-float-rotate2 {
+  animation: float-rotate2 4.2s ease-in-out infinite;
+}
+.animate-float-rotate3 {
+  animation: float-rotate3 3.8s ease-in-out infinite;
+}
 /* Animación shake para error en input */
 .animate-shake {
   animation: shake 0.3s;
@@ -58,6 +83,21 @@ body {
   font-weight: 400;
   font-style: normal;
 }
-.wobble-hor-bottom{-webkit-animation:wobble-hor-bottom .8s NaNs infinite alternate both;animation:wobble-hor-bottom .8s NaNs infinite alternate both}
 
-@-webkit-keyframes wobble-hor-bottom{0%,100%{-webkit-transform:translateX(0);transform:translateX(0);-webkit-transform-origin:50% 50%;transform-origin:50% 50%}15%{-webkit-transform:translateX(-30px) rotate(-6deg);transform:translateX(-30px) rotate(-6deg)}30%{-webkit-transform:translateX(15px) rotate(6deg);transform:translateX(15px) rotate(6deg)}45%{-webkit-transform:translateX(-15px) rotate(-3.6deg);transform:translateX(-15px) rotate(-3.6deg)}60%{-webkit-transform:translateX(9px) rotate(2.4deg);transform:translateX(9px) rotate(2.4deg)}75%{-webkit-transform:translateX(-6px) rotate(-1.2deg);transform:translateX(-6px) rotate(-1.2deg)}}@keyframes wobble-hor-bottom{0%,100%{-webkit-transform:translateX(0);transform:translateX(0);-webkit-transform-origin:50% 50%;transform-origin:50% 50%}15%{-webkit-transform:translateX(-30px) rotate(-6deg);transform:translateX(-30px) rotate(-6deg)}30%{-webkit-transform:translateX(15px) rotate(6deg);transform:translateX(15px) rotate(6deg)}45%{-webkit-transform:translateX(-15px) rotate(-3.6deg);transform:translateX(-15px) rotate(-3.6deg)}60%{-webkit-transform:translateX(9px) rotate(2.4deg);transform:translateX(9px) rotate(2.4deg)}75%{-webkit-transform:translateX(-6px) rotate(-1.2deg);transform:translateX(-6px) rotate(-1.2deg)}}
+
+
+
+@media (max-width: 640px) {
+  .fc .fc-toolbar.fc-header-toolbar {
+    flex-direction: column-reverse !important;
+  
+    display: flex !important;
+      align-items: center !important;
+      
+    justify-content: center !important;
+    align-items: stretch;
+    gap: 0.5rem;
+
+  }
+}
+

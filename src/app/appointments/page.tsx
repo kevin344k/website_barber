@@ -121,12 +121,12 @@ export default function AppointmentsPage() {
   }, []);
 
   return (
-    <div className="max-w-6xl mx-auto p-4 ">
+    <div className="max-w-6xl mx-auto p-4 pt-16">
       <h1 className="text-2xl font-bold mb-4">Agendar cita</h1>
-      <p className="mb-4">Selecciona un horario en el calendario haciendo click y arrastrando en el grid. Los horarios agendados se muestran con colores.</p>
+    
 
       <div className="mb-4">
-        <h3 className="text-lg font-semibold">Leyenda:</h3>
+      
         <div className="flex gap-4">
           <span className="bg-orange-500 text-white px-2 py-1 rounded">Pendiente</span>
           <span className="bg-green-500 text-white px-2 py-1 rounded">Aceptada</span>

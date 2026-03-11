@@ -4,6 +4,10 @@
 import { useState, useEffect } from 'react';
 import { getWorkHoursFromDB, saveWorkHoursToDB } from '../../lib/supabaseWorkHours';
 import { supabase } from '../../lib/supabaseClient';
+import LoginModal from '../components/LoginModal';
+import bcrypt from 'bcryptjs';
+import Image from 'next/image';
+import exit from '@/assets/exit.png';
 
 interface Slot {
   id: number;
@@ -13,42 +17,40 @@ interface Slot {
   available: boolean;
 }
 
-interface Appointment {
-  id: number;
-  name: string;
-  surname: string;
-  email: string;
-  scheduled_at: string;
-  status: string;
-}
 
 export default function AdminPage() {
-  // const [slots, setSlots] = useState<Slot[]>([]);
-  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  // Estado y lógica de login (persistente con localStorage, sin error de hidratación)
+  const [isLogged, setIsLogged] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
+  const [loginError, setLoginError] = useState('');
+  const [showLogin, setShowLogin] = useState(true);
+  const [loadingLogin, setLoadingLogin] = useState(false);
+
+  // --- Lógica de admin panel ---
+  const [appointments, setAppointments] = useState([]);
   const [workStart, setWorkStart] = useState('09:00');
   const [workEnd, setWorkEnd] = useState('19:00');
-
-  // Eliminar cita (debe estar dentro del componente para acceder a fetchAppointments)
-  const deleteAppointment = async (id: number) => {
-    const { error } = await supabase.from('appointments').delete().eq('id', id);
-    if (!error) fetchAppointments();
-  };
   const [pendingStart, setPendingStart] = useState('09:00');
   const [pendingEnd, setPendingEnd] = useState('19:00');
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    fetchAppointments();
-    // Cargar horario guardado en Supabase
-    getWorkHoursFromDB().then(({ start, end }) => {
-      setWorkStart(start);
-      setWorkEnd(end);
-      setPendingStart(start);
-      setPendingEnd(end);
-    });
+    // Solo en cliente: sincronizar estado con localStorage
+    setIsLogged(localStorage.getItem('admin_logged') === 'true');
+    setHydrated(true);
   }, []);
 
-
+  useEffect(() => {
+    if (isLogged) {
+      fetchAppointments();
+      getWorkHoursFromDB().then(({ start, end }) => {
+        setWorkStart(start);
+        setWorkEnd(end);
+        setPendingStart(start);
+        setPendingEnd(end);
+      });
+    }
+  }, [isLogged]);
 
   const fetchAppointments = async () => {
     const { data, error } = await supabase.from('appointments').select('*');
@@ -59,11 +61,7 @@ export default function AdminPage() {
     }
   };
 
-
-
-
-
-  const updateAppointmentStatus = async (id: number, status: string) => {
+  const updateAppointmentStatus = async (id, status) => {
     const { error } = await supabase
       .from('appointments')
       .update({ status })
@@ -75,10 +73,65 @@ export default function AdminPage() {
     }
   };
 
-  return (
-    <div className="max-w-4xl mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Panel de Administrador</h1>
+  const deleteAppointment = async (id) => {
+    const { error } = await supabase.from('appointments').delete().eq('id', id);
+    if (!error) fetchAppointments();
+  };
 
+  // Lógica de login
+  const signIn = async (username, password) => {
+    setLoadingLogin(true);
+    setLoginError('');
+    // Buscar usuario en la tabla sessions
+    const { data, error } = await supabase
+      .from('sessions')
+      .select('*')
+      .eq('username', username)
+      .single();
+    if (error || !data) {
+      setLoginError('Usuario o contraseña incorrectos');
+      setLoadingLogin(false);
+      return;
+    }
+    // Validar password
+    const valid = await bcrypt.compare(password, data.password_hash);
+    if (!valid) {
+      setLoginError('Usuario o contraseña incorrectos');
+      setLoadingLogin(false);
+      return;
+    }
+    // Login exitoso
+    setIsLogged(true);
+    setShowLogin(false);
+    setLoadingLogin(false);
+    localStorage.setItem('admin_logged', 'true');
+    // Actualizar last_login
+    await supabase.from('sessions').update({ last_login: new Date().toISOString() }).eq('id', data.id);
+  };
+
+
+  if (!hydrated) {
+    // Evita parpadeo y error de hidratación
+    return null;
+  }
+  if (!isLogged) {
+    return (
+      <LoginModal
+        onLogin={signIn}
+        error={loginError}
+        show={showLogin}
+        loading={loadingLogin}
+      />
+    );
+  }
+
+
+
+  return (
+    <div className="max-w-4xl mx-auto p-4 pt-20">
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-2xl font-bold">Panel de Administrador</h1>
+      </div>
       {/* Panel para modificar horario de trabajo */}
       <div className="mb-8">
         <h2 className="text-xl mb-2">Horario de Trabajo</h2>
@@ -122,7 +175,6 @@ export default function AdminPage() {
         </form>
         {message && <div className="text-green-600 font-semibold mt-2 animate-fade-in-down">{message}</div>}
       </div>
-
       <div>
         <h2 className="text-xl mb-2">Citas Agendadas</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
