@@ -1,12 +1,20 @@
-import Image from "next/image";
 
+
+"use client";
+import Image from "next/image";
+import { useState, useEffect } from "react";
 import imgHero from '@/assets/hero_image.jpg'
 
-
-
-
-
 export default function Home() {
+  const [wobble, setWobble] = useState(false);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWobble(true);
+      setTimeout(() => setWobble(false), 800); // Duración de la animación
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className=" bg-white font-sans ">
       <main className="relative h-screen w-screen flex items-center justify-center">
@@ -17,10 +25,15 @@ export default function Home() {
         </p>
         <div className="mt-6 mb-8">
       
-            <a href="/appointments" className="wobble-hor-bottom animate-bounce shadow-md mr-4 flex mx-auto items-center gap-2 w-fit text-white bg-amber-600 hover:bg-ambar-700 font-bold py-2 px-4 rounded-full transition  bottom-10 right-10 z-10">
-                <svg className="w-8 h-8 text-amber-900" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-          <span className="font-normal">  Agendar cita</span>
-          </a>
+            <a
+              href="/appointments"
+              className={`shadow-md mr-4 flex mx-auto items-center gap-2 w-fit text-white bg-amber-600 hover:bg-ambar-700 font-bold py-2 px-4 rounded-full transition bottom-10 right-10 z-10 ${wobble ? 'animate-wobble-hor-bottom' : ''}`}
+              onMouseEnter={() => setWobble(true)}
+              onAnimationEnd={() => setWobble(false)}
+            >
+              <svg className="w-8 h-8 text-amber-900" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+              <span className="font-normal">  Agendar cita</span>
+            </a>
         </div>
         <div className="relative mt-8 ">
         
