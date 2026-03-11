@@ -42,13 +42,22 @@ export default function ClientHeader() {
           Ingresar
         </button>
       ) : (
-        <button
-          onClick={handleLogout}
-          title="Cerrar sesión"
-          className="ml-2 px-4 py-2 rounded bg-red-600 hover:bg-red-700 text-white font-bold transition"
-        >
-          Salir
-        </button>
+        <>
+          <a
+            href="/admin"
+            className="ml-2 px-4 py-2 rounded bg-neutral-600/20 inset-1.5 border border-neutral-400 hover:bg-blue-700 text-white font-bold transition"
+            style={{ textDecoration: 'none' }}
+          >
+            Panel 
+          </a>
+          <button
+            onClick={handleLogout}
+            title="Cerrar sesión"
+            className="ml-2 px-4 py-2 rounded bg-red-600 hover:bg-red-700 text-white font-bold transition"
+          >
+            Salir
+          </button>
+        </>
       )}
     </nav>
   );

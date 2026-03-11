@@ -1,5 +1,3 @@
-
-
 import { FC, useState } from 'react';
 import Image from 'next/image';
 
@@ -91,6 +89,15 @@ const LoginModal: FC<LoginModalProps> = ({ onLogin, error, show, loading }) => {
             {loading ? 'Ingresando...' : 'Ingresar'}
           </button>
         </form>
+        <div className="flex justify-center mt-6 items-center">
+          <a href="/" title="Volver al inicio" className="flex items-center justify-center w-14 h-14 rounded-full bg-gray-100 hover:bg-gray-200 shadow transition">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-9 w-12" fill="none" viewBox="0 0 25 32" stroke="#6B7280" strokeWidth={2} style={{ display: 'block', margin: 'auto', transform: 'rotate(180deg)' }}>
+              {/* Flecha izquierda grande, centrada y con cola */}
+              <polyline points="14 10 20 16 14 22" fill="none" stroke="#6B7280" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              <line x1="6" y1="16" x2="14" y2="16" stroke="#6B7280" strokeWidth="2.5" strokeLinecap="round" />
+            </svg>
+          </a>
+        </div>
       </div>
     </div>
   );
